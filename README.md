@@ -1,4 +1,4 @@
-# FEMMInterpreter
+## Overview
 A python library for interpreting FEMM solution files
 
 > [!important]

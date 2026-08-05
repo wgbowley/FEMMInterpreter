@@ -4,6 +4,9 @@
   "words": [
     "Bowley",
     "Femm",
-    "Descoped"
+    "Descoped",
+    "pylint",
+    "tokei",
+    "isort"
   ]
 }

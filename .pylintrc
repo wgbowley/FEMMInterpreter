@@ -1,0 +1,14 @@
+[MESSAGES CONTROL]
+disable = 
+    R0903,                      # Too few public methods
+    R0911,                      # Too many return statements
+    C0321,                      # Multiple Statements (More than one statement on a single line)
+
+
+[MASTER]
+ignore-paths=
+    ^.*\.pyi$,
+
+
+[FORMAT]
+max-line-length=100             # Maximum number of characters on a single line.
