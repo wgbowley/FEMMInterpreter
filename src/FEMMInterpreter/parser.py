@@ -13,7 +13,7 @@ from typing import IO, Any
 from dataclasses import dataclass
 
 from FEMMInterpreter.core.deserialization import Deserialize
-
+from FEMMInterpreter.utilities.errors import ParserError
 
 
 class Parser:
@@ -90,7 +90,9 @@ class ParseLines:
             closing_bracket = line.find(']')
 
             # Closing bracket not found in-line
-            if closing_bracket == -1: raise
+            if closing_bracket == -1:
+                msg = "closing bracket not found in-line"
+                raise ParserError(cls.__name__, msg)
 
             # Returns the contents if true
             return True, line[1:closing_bracket]
