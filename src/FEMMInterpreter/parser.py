@@ -13,6 +13,7 @@ from typing import IO, Any
 from dataclasses import dataclass
 
 from FEMMInterpreter.core.deserialization import Deserialize
+from FEMMInterpreter.core.constants import FILE_TYPES, BLOCK_SECTIONS, DATA_SECTIONS
 from FEMMInterpreter.utilities.errors import ParserError
 
 
@@ -24,8 +25,8 @@ class Parser:
         # Checks file type and reads lines into memory
         if isinstance(filepath, (str, Path)):
             path = Path(filepath)
-            if path.suffix.lower() != '.ans':
-                raise ValueError(f"Expected .ans file, got {path.suffix}")
+            if path.suffix.lower() not in FILE_TYPES:
+                raise ValueError(f"Expected {FILE_TYPES!r} file, got {path.suffix!r}")
         lines = cls._read_lines(filepath)
 
         # Returns lines instead of data.
@@ -57,18 +58,6 @@ class ParseLineState:
 
 class ParseLines:
     """ Parsel lines for .ans file format """
-    BLOCK_SECTIONS = [
-        "bdryprops",
-        "blockprops",
-        "circuitprops",
-    ]
-
-    DATA_SECTIONS = [
-        "numblocklabels",
-        "numpoints",
-        "numsegments"
-    ]
-
     @classmethod
     def parse(cls, lines: list[str]) -> dict:
         """ Parses and extracts logic from raw text into structured results """
@@ -85,14 +74,15 @@ class ParseLines:
                 is_value, raw_value = cls._extract_section_value(line)
                 value = Deserialize.cast(raw_value)
 
-                if section.lower() in cls.BLOCK_SECTIONS:
+                if section.lower() in BLOCK_SECTIONS:
                     # Parses block section syntaxes
                     print(section, value)
                     continue
 
-                if section.lower() in cls.DATA_SECTIONS:
+                if section.lower() in DATA_SECTIONS:
                     # Parses the data section syntaxes
                     print(section, value)
+                    continue
 
                 if is_value:
                     # Adds the section value under section name
@@ -116,6 +106,7 @@ class ParseLines:
 
             # Returns the contents if true
             return True, line[1:closing_bracket]
+
         return False, ""
 
     @classmethod
@@ -125,4 +116,5 @@ class ParseLines:
         if equal_sign != -1:
             # Returns the value if true and removes additional whitespaces
             return True, line[equal_sign+1:].strip()
+
         return False, ""
