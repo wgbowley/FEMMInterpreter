@@ -8,7 +8,6 @@ Description:
     field representations for layer.
 """
 
-
 from pathlib import Path
 from typing import IO, Any
 
