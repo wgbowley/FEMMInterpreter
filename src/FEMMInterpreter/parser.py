@@ -52,27 +52,22 @@ class Parser:
 class ParseLineState:
     """Stores the state of the line parser"""
     index: int = 0
-    section: str | None = None
-    block: str | None = None
     content: dict | None = None
-
-
-@dataclass(slots=True)
-class PointData:
-    """ Stores the state of a point """
-    x: float
-    y: float
-    a: float
-    boundary: int
 
 
 class ParseLines:
     """ Parsel lines for .ans file format """
-    BLOCK_PAIRS = {
-        "<BeginBdry>":    "<EndBdry>",
-        "<BeginBlock>":   "<EndBlock>",
-        "<BeginCircuit>": "<EndCircuit>"
-    }
+    BLOCK_SECTIONS = [
+        "bdryprops",
+        "blockprops",
+        "circuitprops",
+    ]
+
+    DATA_SECTIONS = [
+        "numblocklabels",
+        "numpoints",
+        "numsegments"
+    ]
 
     @classmethod
     def parse(cls, lines: list[str]) -> dict:
@@ -84,51 +79,26 @@ class ParseLines:
             line = lines[state.index].strip()
             state.index += 1
 
-            is_section, name = cls._is_section(line)
+            is_section, section = cls._is_section(line)
             if is_section:
-                # Updates section if identified
-                state.section = name
-                state.content[name] = {}
-
-                if name.lower() == "solution":
-                    # Special Case for solution
-                    state.content[name] = []
-
                 # Checks for section value and casts the value into python primitives
                 is_value, raw_value = cls._extract_section_value(line)
                 value = Deserialize.cast(raw_value)
 
-                # Adds the value to the section
-                if is_value: state.content[name]["value"] = value
+                if section.lower() in cls.BLOCK_SECTIONS:
+                    # Parses block section syntaxes
+                    print(section, value)
+                    continue
 
-                continue
+                if section.lower() in cls.DATA_SECTIONS:
+                    # Parses the data section syntaxes
+                    print(section, value)
 
-            if cls._is_new_blocks(line):
-                # Checks if its a block section and updates the block if identified
-                state.block = line.strip()
-                state.content[state.section][state.block] = {}
-
-                continue
-
-            if state.block and cls._is_close_block(line, state):
-                # Closes the block if closing block tag is identified
-                state.block = None
-                continue
-
-            if state.block:
-                # Extracts block and cases the values within the block
-                name, value = cls._extract_block_value(line, state)
-                value = Deserialize.cast(raw_value)
-
-                # Adds the name and value to the block and section
-                state.content[state.section][state.block][name] = value
-
-            if state.section.lower() == "solution":
-                values = line.split()
-                if len(values) == 4:
-                    # Records -> x | r, y | z, A, Boundary
-                    point = PointData(values[0], values[1], values[2], values[3])
-                    state.content[state.section].append(point)
+                if is_value:
+                    # Adds the section value under section name
+                    state.content[section] = {}
+                    state.content[section] = value
+                    continue
 
         return state.content
 
@@ -156,30 +126,3 @@ class ParseLines:
             # Returns the value if true and removes additional whitespaces
             return True, line[equal_sign+1:].strip()
         return False, ""
-
-    @classmethod
-    def _is_new_blocks(cls, line: str) -> bool:
-        """ Checks if its a block section """
-        if line in cls.BLOCK_PAIRS:
-            return True
-
-        return False
-
-    @classmethod
-    def _is_close_block(cls, line: str, state: ParseLineState) -> bool:
-        if line in cls.BLOCK_PAIRS[state.block]:
-            return True
-
-        return False
-
-    @classmethod
-    def _extract_block_value(cls, line: str, state: ParseLineState) -> tuple[str, str]:
-        """ Extract block name and value from line """
-        equal_sign = line.find("=")
-        if equal_sign == -1:
-            # Malformed block section found inline
-            msg = f"Malformed block section found in {line!r}, Index: {state.index}"
-            raise ParserError(cls.__name__, msg)
-
-        # Returns the name and value while removing additional whitespaces
-        return line[:equal_sign-1].strip(), line[equal_sign+1:].strip()

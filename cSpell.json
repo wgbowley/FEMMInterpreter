@@ -8,6 +8,17 @@
     "pylint",
     "tokei",
     "isort",
-    "bdry"
+    "bdry",
+    "beginbdry",
+    "beginblock",
+    "begincircuit",
+    "endbdry",
+    "endcircuit",
+    "bdryprops",
+    "blockprops",
+    "circuitprops",
+    "numblocklabels",
+    "numpoints",
+    "numsegments",
   ]
 }
