@@ -11,7 +11,7 @@ Description:
 from pathlib import Path
 from typing import IO, Any
 
-from FEMMInterpreter.core.state import ParserState
+from FEMMInterpreter.core.states import ParserState
 from FEMMInterpreter.core.deserialization import Deserialize
 from FEMMInterpreter.core.syntax import BlockExtraction, DataExtraction, SolutionExtraction
 from FEMMInterpreter.core.constants import (
@@ -70,13 +70,13 @@ class ParseLines:
 
             if section.lower() in BLOCK_SECTIONS:
                 # Parses block section syntaxes
-                data, state = BlockExtraction.extract(lines, state)
+                data, state = BlockExtraction.extract(lines, value, state)
                 state.content[section] = data
                 continue
 
             if section.lower() in DATA_SECTIONS:
                 # Parses the data section syntaxes
-                data, state = DataExtraction.extract(lines, state)
+                data, state = DataExtraction.extract(lines, value, state)
                 state.content[section] = data
                 continue
 

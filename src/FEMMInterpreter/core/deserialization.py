@@ -10,6 +10,8 @@ Description:
 
 
 from __future__ import annotations
+from typing import Any
+
 from FEMMInterpreter.utilities.errors import FailedCasting
 
 
@@ -49,6 +51,17 @@ class Deserialize:
 
         # Default to string
         return str(text)
+
+    @classmethod
+    def cast_list(cls, items: list[str]) -> list[Any]:
+        """ Casts values within list into primitives """
+        casted_list = []
+
+        for item in items:
+            # Casts each item as a python primitive
+            casted_list.append(cls.cast(item))
+
+        return casted_list
 
     @classmethod
     def is_quoted(cls, text: str) -> bool:

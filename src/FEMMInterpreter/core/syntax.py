@@ -8,25 +8,93 @@ Description:
     section parsing.
 """
 
-from FEMMInterpreter.core.state import ParserState
+from FEMMInterpreter.core.states import ParserState
+from FEMMInterpreter.utilities.errors import ParserError
+from FEMMInterpreter.core.deserialization import Deserialize
+
+from FEMMInterpreter.core.constants import BLOCK_PAIRS
 
 
 class BlockExtraction:
     """ Extract arbitrary block section data from .ans format """
     @classmethod
-    def extract(cls, lines: list[str], state: ParserState) -> tuple[dict, ParserState]:
+    def extract(
+        cls, lines: list[str], items: int, state: ParserState
+    ) -> tuple[dict, ParserState]:
         """ Extracts the block section """
-        _ = lines
-        return {}, state
+        block = {}
+        num_item = 0
+        while state.index < len(lines):
+            line = lines[state.index].strip()
+            state.index += 1
+
+            if cls._is_new_blocks(line):
+                state.section = line.strip().lower()
+                continue
+
+            if state.section and cls._is_close_block(line, state):
+                state.section = None
+                num_item += 1
+
+                # Returns the result after iteration across items
+                if num_item == items: return block, state
+
+        msg = "Failed to parse block section"
+        raise ParserError(cls.__name__, msg)
+
+    @classmethod
+    def _is_new_blocks(cls, line: str) -> bool:
+        """ Checks if its a block section """
+        if line.lower() in BLOCK_PAIRS:
+            return True
+
+        return False
+
+    @classmethod
+    def _is_close_block(cls, line: str, state: ParserState) -> bool:
+        if state.section is None:
+            return False
+
+        if line.lower() in BLOCK_PAIRS[state.section]:
+            return True
+
+        return False
+
+    @classmethod
+    def _extract_block_value(cls, line: str, state: ParserState) -> tuple[str, str]:
+        """ Extract block name and value from line """
+        equal_sign = line.find("=")
+        if equal_sign == -1:
+            msg = f"Malformed block section found in {line!r}, Index: {state.index}"
+            raise ParserError(cls.__name__, msg)
+
+        return line[:equal_sign-1].strip(), line[equal_sign+1:].strip()
 
 
 class DataExtraction:
     """ Extract arbitrary data section from .ans format """
     @classmethod
-    def extract(cls, lines: list[str], state: ParserState) -> tuple[dict, ParserState]:
+    def extract(
+        cls, lines: list[str], items: int, state: ParserState
+    ) -> tuple[dict, ParserState]:
         """ Extracts the data section """
-        _ = lines
-        return {}, state
+        data = {}
+        num_item = 0
+        while state.index < len(lines):
+            line = lines[state.index].strip()
+            state.index += 1
+
+            # Splits the line into values
+            values = line.split()
+            data[num_item] = Deserialize.cast_list(values)
+
+            num_item += 1
+
+            # Returns the result after iteration across items
+            if num_item == items: return data, state
+
+        msg = "Failed to parse data section"
+        raise ParserError(cls.__name__, msg)
 
 
 class SolutionExtraction:
@@ -34,5 +102,26 @@ class SolutionExtraction:
     @classmethod
     def extract(cls, lines: list[str], state: ParserState) -> tuple[dict, ParserState]:
         """ Extracts the solution data """
-        _ = lines
-        return {}, state
+        data = {}
+        items = None
+        while state.index < len(lines):
+            line = lines[state.index].strip()
+            state.index += 1
+
+            # Skips empty
+            if not line: continue
+
+            # Splits the line into values
+            values = line.split()
+            values = Deserialize.cast_list(values)
+
+            # Updates the section name based off items
+            if len(values) == 1:
+                items = values[0]
+                data[items] = []
+                continue
+
+            if items is not None:
+                data[items].append(values)
+
+        return data, state

@@ -17,9 +17,15 @@ FILE_TYPES = [
 BLOCK_SECTIONS = [
     "bdryprops",
     "blockprops",
-    "circuitprops",
+    "circuitprops"
 ]
 
+# Validate Block Pairs
+BLOCK_PAIRS = {
+    "<beginbdry>":    "<endbdry>",
+    "<beginblock>":   "<endblock>",
+    "<begincircuit>": "<endcircuit>"
+}
 
 # Validate Data Section Names
 DATA_SECTIONS = [
@@ -30,5 +36,5 @@ DATA_SECTIONS = [
 
 # Validate Solution Section Name
 SOLUTION_SECTION = [
-    "Solution"
+    "solution"
 ]
