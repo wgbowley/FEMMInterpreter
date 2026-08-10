@@ -1,4 +1,2 @@
-/development
-/src/FEMMInterpreter.egg-info
-
 *.pyc
+*.egg-info

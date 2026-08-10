@@ -31,7 +31,8 @@ BLOCK_PAIRS = {
 DATA_SECTIONS = [
     "numblocklabels",
     "numpoints",
-    "numsegments"
+    "numsegments",
+    "<bhpoints>"
 ]
 
 # Validate Solution Section Name

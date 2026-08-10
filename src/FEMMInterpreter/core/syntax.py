@@ -12,7 +12,7 @@ from FEMMInterpreter.core.states import ParserState
 from FEMMInterpreter.utilities.errors import ParserError
 from FEMMInterpreter.core.deserialization import Deserialize
 
-from FEMMInterpreter.core.constants import BLOCK_PAIRS
+from FEMMInterpreter.core.constants import BLOCK_PAIRS, DATA_SECTIONS
 
 
 class BlockExtraction:
@@ -24,6 +24,9 @@ class BlockExtraction:
         """ Extracts the block section """
         block = {}
         num_item = 0
+
+        # Initializes the first item
+        block[num_item] = {}
         while state.index < len(lines):
             line = lines[state.index].strip()
             state.index += 1
@@ -38,6 +41,25 @@ class BlockExtraction:
 
                 # Returns the result after iteration across items
                 if num_item == items: return block, state
+
+                # Adds the entry for the next item
+                block[num_item] = {}
+                continue
+
+            if state.section:
+                # Extracts block and cases the values within the block
+                name, raw_value = cls._extract_block_value(line, state)
+                value = Deserialize.cast(raw_value)
+
+                if name.lower() in DATA_SECTIONS:
+                    # Parses the data section syntaxes
+                    data, state = DataExtraction.extract(lines, value, state)
+                    block[num_item][name] = data
+                    continue
+
+                # Adds the name and value to the block and section
+                block[num_item][name] = value
+                continue
 
         msg = "Failed to parse block section"
         raise ParserError(cls.__name__, msg)
@@ -78,6 +100,10 @@ class DataExtraction:
         cls, lines: list[str], items: int, state: ParserState
     ) -> tuple[dict, ParserState]:
         """ Extracts the data section """
+        if items == 0:
+            # If the entry has zero data. Returns None
+            return {}, state
+
         data = {}
         num_item = 0
         while state.index < len(lines):
