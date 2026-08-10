@@ -8,34 +8,37 @@ Description:
     field representations for layer.
 """
 
+
 from pathlib import Path
 from typing import IO, Any
-from dataclasses import dataclass
 
+from FEMMInterpreter.core.state import ParserState
 from FEMMInterpreter.core.deserialization import Deserialize
-from FEMMInterpreter.core.constants import FILE_TYPES, BLOCK_SECTIONS, DATA_SECTIONS
+from FEMMInterpreter.core.syntax import BlockExtraction, DataExtraction, SolutionExtraction
+from FEMMInterpreter.core.constants import (
+    FILE_TYPES, BLOCK_SECTIONS, DATA_SECTIONS, SOLUTION_SECTION
+)
+
 from FEMMInterpreter.utilities.errors import ParserError
 
 
 class Parser:
-    """ Parser for .ans file format """
+    """ Parser for .ans file format. """
     @classmethod
     def open(cls, filepath: Path | str | IO | Any) -> dict:
-        """ Parses .ans file into a field representation """
+        """ Parses .ans file into a field representation. """
         # Checks file type and reads lines into memory
         if isinstance(filepath, (str, Path)):
             path = Path(filepath)
             if path.suffix.lower() not in FILE_TYPES:
                 raise ValueError(f"Expected {FILE_TYPES!r} file, got {path.suffix!r}")
-        lines = cls._read_lines(filepath)
 
-        # Returns lines instead of data.
-        data = ParseLines.parse(lines)
-        return data
+        lines = cls._read_lines(filepath)
+        return ParseLines.parse(lines)
 
     @staticmethod
     def _read_lines(filepath_or_file: Path | str | IO | Any) ->  list[str]:
-        """Read lines from file path or file-like object."""
+        """ Read lines from file path or file-like object. """
         if hasattr(filepath_or_file, 'read') and hasattr(filepath_or_file, 'readlines'):
             # Check if it's a file-like object
             return filepath_or_file.readlines()
@@ -49,19 +52,12 @@ class Parser:
             return f.readlines()
 
 
-@dataclass
-class ParseLineState:
-    """Stores the state of the line parser"""
-    index: int = 0
-    content: dict | None = None
-
-
 class ParseLines:
-    """ Parsel lines for .ans file format """
+    """ Parses lines for .ans file format. """
     @classmethod
     def parse(cls, lines: list[str]) -> dict:
-        """ Parses and extracts logic from raw text into structured results """
-        state = ParseLineState()
+        """ Parses and extracts logic from raw text into structured results. """
+        state = ParserState()
         state.content = {}
 
         while state.index < len(lines):
@@ -69,52 +65,55 @@ class ParseLines:
             state.index += 1
 
             is_section, section = cls._is_section(line)
-            if is_section:
-                # Checks for section value and casts the value into python primitives
-                is_value, raw_value = cls._extract_section_value(line)
-                value = Deserialize.cast(raw_value)
+            is_value, raw_value = cls._extract_section_value(line)
 
-                if section.lower() in BLOCK_SECTIONS:
-                    # Parses block section syntaxes
-                    print(section, value)
-                    continue
+            value = Deserialize.cast(raw_value)
 
-                if section.lower() in DATA_SECTIONS:
-                    # Parses the data section syntaxes
-                    print(section, value)
-                    continue
+            if section.lower() in BLOCK_SECTIONS:
+                # Parses block section syntaxes
+                data, state = BlockExtraction.extract(lines, state)
+                state.content[section] = data
+                continue
 
-                if is_value:
-                    # Adds the section value under section name
-                    state.content[section] = {}
-                    state.content[section] = value
-                    continue
+            if section.lower() in DATA_SECTIONS:
+                # Parses the data section syntaxes
+                data, state = DataExtraction.extract(lines, state)
+                state.content[section] = data
+                continue
 
+            if section.lower() in SOLUTION_SECTION:
+                # Parse the solution section syntaxes
+                data, state = SolutionExtraction.extract(lines, state)
+                state.content[section] = data
+                continue
+
+            if is_section and is_value:
+                # Adds the section value under section name
+                state.content[section] = value
+                continue
+
+            return state.content
         return state.content
 
     @classmethod
     def _is_section(cls, line: str) -> tuple[bool, str]:
-        """ Check if line defines a section [name] """
+        """ Check if line defines a section [name]. """
         line = line.strip()
-        if line.startswith('['):
-            closing_bracket = line.find(']')
+        if not line.startswith('['):
+            return False, ""
 
-            # Closing bracket not found in-line
-            if closing_bracket == -1:
-                msg = "closing bracket not found in-line"
-                raise ParserError(cls.__name__, msg)
+        closing_bracket = line.find(']')
+        if closing_bracket == -1:
+            msg = "closing bracket not found in-line"
+            raise ParserError(cls.__name__, msg)
 
-            # Returns the contents if true
-            return True, line[1:closing_bracket]
-
-        return False, ""
+        return True, line[1:closing_bracket]
 
     @classmethod
     def _extract_section_value(cls, line: str) -> tuple[bool, str]:
-        """ Extract section or subsection values """
+        """ Extract section or subsection values. """
         equal_sign = line.find("=")
-        if equal_sign != -1:
-            # Returns the value if true and removes additional whitespaces
-            return True, line[equal_sign+1:].strip()
+        if equal_sign == -1:
+            return False, ""
 
-        return False, ""
+        return True, line[equal_sign+1:].strip()

@@ -27,3 +27,8 @@ DATA_SECTIONS = [
     "numpoints",
     "numsegments"
 ]
+
+# Validate Solution Section Name
+SOLUTION_SECTION = [
+    "Solution"
+]
