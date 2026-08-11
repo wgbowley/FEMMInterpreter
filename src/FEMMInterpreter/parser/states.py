@@ -15,4 +15,5 @@ class ParserState:
     """ Stores the state of the parser """
     index: int = 0
     section: str | None = None
+    block: str | None = None
     content: dict | None = None

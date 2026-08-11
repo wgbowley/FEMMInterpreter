@@ -1,12 +1,10 @@
 # pylint: skip-file
 # FEMMInterpreter/__init__.py
 
-from FEMMInterpreter.parser.main import Parser
-
+from FEMMInterpreter.main import Parser
 
 # Parser import
 FEMMParser = Parser
-
 
 # API Promises
 __all__ = [

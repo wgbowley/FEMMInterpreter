@@ -8,11 +8,11 @@ Description:
     section parsing.
 """
 
-from FEMMInterpreter.parser.core.states import ParserState
-from FEMMInterpreter.parser.utilities.errors import ParserError
-from FEMMInterpreter.parser.core.deserialization import Deserialize
+from FEMMInterpreter.parser.states import ParserState
+from FEMMInterpreter.utilities.errors import ParserError
+from FEMMInterpreter.parser.deserialization import Deserialize
 
-from FEMMInterpreter.parser.core.constants import BLOCK_PAIRS, DATA_SECTIONS
+from FEMMInterpreter.constants import BLOCK_PAIRS, DATA_SECTIONS
 
 
 class BlockExtraction:
@@ -22,6 +22,10 @@ class BlockExtraction:
         cls, lines: list[str], items: int, state: ParserState
     ) -> tuple[dict, ParserState]:
         """ Extracts the block section """
+        if items == 0:
+            # If the entry has zero data. Returns None
+            return {}, state
+
         block = {}
         num_item = 0
 
@@ -32,11 +36,11 @@ class BlockExtraction:
             state.index += 1
 
             if cls._is_new_blocks(line):
-                state.section = line.strip().lower()
+                state.block = line.strip().lower()
                 continue
 
-            if state.section and cls._is_close_block(line, state):
-                state.section = None
+            if state.block and cls._is_close_block(line, state):
+                state.block = None
                 num_item += 1
 
                 # Returns the result after iteration across items
@@ -46,12 +50,12 @@ class BlockExtraction:
                 block[num_item] = {}
                 continue
 
-            if state.section:
+            if state.block:
                 # Extracts block and cases the values within the block
                 name, raw_value = cls._extract_block_value(line, state)
                 value = Deserialize.cast(raw_value)
 
-                if name.lower() in DATA_SECTIONS:
+                if name in DATA_SECTIONS:
                     # Parses the data section syntaxes
                     data, state = DataExtraction.extract(lines, value, state)
                     block[num_item][name] = data
@@ -61,7 +65,7 @@ class BlockExtraction:
                 block[num_item][name] = value
                 continue
 
-        msg = "Failed to parse block section"
+        msg = f"Failed to parse block section, block: {block}, items: {items}"
         raise ParserError(cls.__name__, msg)
 
     @classmethod
@@ -74,10 +78,10 @@ class BlockExtraction:
 
     @classmethod
     def _is_close_block(cls, line: str, state: ParserState) -> bool:
-        if state.section is None:
+        if state.block is None:
             return False
 
-        if line.lower() in BLOCK_PAIRS[state.section]:
+        if line.lower() in BLOCK_PAIRS[state.block]:
             return True
 
         return False
@@ -90,7 +94,8 @@ class BlockExtraction:
             msg = f"Malformed block section found in {line!r}, Index: {state.index}"
             raise ParserError(cls.__name__, msg)
 
-        return line[:equal_sign-1].strip(), line[equal_sign+1:].strip()
+        # Returns stripped lower name and stripped value
+        return line[:equal_sign-1].strip().lower(), line[equal_sign+1:].strip()
 
 
 class DataExtraction:
@@ -129,25 +134,48 @@ class SolutionExtraction:
     def extract(cls, lines: list[str], state: ParserState) -> tuple[dict, ParserState]:
         """ Extracts the solution data """
         data = {}
-        items = None
+        rows = []
+        current_item = None
+
         while state.index < len(lines):
             line = lines[state.index].strip()
             state.index += 1
 
-            # Skips empty
-            if not line: continue
-
             # Splits the line into values
-            values = line.split()
-            values = Deserialize.cast_list(values)
+            raw_values = line.split()
+            cast_values = Deserialize.cast_list(raw_values)
 
-            # Updates the section name based off items
-            if len(values) == 1:
-                items = values[0]
-                data[items] = []
+            if len(raw_values) == 1:
+                # Updates the section name based off items
+                if current_item is not None and rows:
+                    data[current_item] = cls._transpose(rows)
+                    rows = []
+
+                current_item = cast_values[0]
                 continue
 
-            if items is not None:
-                data[items].append(values)
+            # Skip orphaned data
+            if current_item is None: continue
+
+            rows.append(cast_values)
+
+        if current_item is not None and rows:
+            data[current_item] = cls._transpose(rows)
 
         return data, state
+
+    @classmethod
+    def _transpose(cls, rows: list[list]) -> list[list]:
+        """ Transpose rows into columns """
+        # Skips transposing and returns an empty array
+        if not rows: return []
+
+        # Creates a list of columns to transpose.
+        num_cols = len(rows[0])
+        transposed = [[] for _ in range(num_cols)]
+
+        for row in rows:
+            for col_idx, value in enumerate(row):
+                transposed[col_idx].append(value)
+
+        return transposed

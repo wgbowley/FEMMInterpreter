@@ -12,6 +12,10 @@ FILE_TYPES = [
     ".ans"
 ]
 
+# Validate File Formats
+FILE_FORMATS = [
+    4.0
+]
 
 # Validate Block Section Names
 BLOCK_SECTIONS = [
@@ -30,6 +34,7 @@ BLOCK_PAIRS = {
 # Validate Data Section Names
 DATA_SECTIONS = [
     "numblocklabels",
+    "conductorprops",
     "numpoints",
     "numsegments",
     "<bhpoints>"

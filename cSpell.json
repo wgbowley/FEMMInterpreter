@@ -35,6 +35,9 @@
     "tokei",
     "viridis",
     "xlabel",
-    "ylabel"
+    "ylabel",
+    "tkpoints",
+    "conductorprops",
+    "minangle"
   ]
 }

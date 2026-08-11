@@ -1,5 +1,5 @@
 """
-Filename: parser.py
+Filename: main.py
 
 Description:
     Domain specific language parser for .ans file
@@ -9,38 +9,41 @@ Description:
 """
 
 from pathlib import Path
-from typing import IO, Any
 
-from FEMMInterpreter.parser.core.states import ParserState
-from FEMMInterpreter.parser.core.deserialization import Deserialize
-from FEMMInterpreter.parser.core.syntax import BlockExtraction, DataExtraction, SolutionExtraction
-from FEMMInterpreter.parser.core.constants import (
-    FILE_TYPES, BLOCK_SECTIONS, DATA_SECTIONS, SOLUTION_SECTION
-)
+from FEMMInterpreter.parser.states import ParserState
+from FEMMInterpreter.parser.deserialization import Deserialize
+from FEMMInterpreter.parser.syntax import BlockExtraction, DataExtraction, SolutionExtraction
+from FEMMInterpreter.constants import FILE_TYPES, BLOCK_SECTIONS, DATA_SECTIONS, SOLUTION_SECTION
 
-from FEMMInterpreter.parser.utilities.errors import ParserError
+from FEMMInterpreter.utilities.errors import ParserError, FileTypeNotSupport
+from FEMMInterpreter.interpreter.attributes import AttributeLoader, MagneticData
 
 
 class Parser:
     """ Parser for .ans file format. """
     @classmethod
-    def open(cls, filepath: Path | str | IO | Any) -> dict:
+    def open(cls, filepath: Path | str ) -> MagneticData:
         """ Parses .ans file into a field representation. """
-        # Checks file type and reads lines into memory
-        if isinstance(filepath, (str, Path)):
-            path = Path(filepath)
-            if path.suffix.lower() not in FILE_TYPES:
-                raise ValueError(f"Expected {FILE_TYPES!r} file, got {path.suffix!r}")
+        if not isinstance(filepath, (str, Path)):
+            # Raises error for non supported path type
+            msg = f"Invalid path type {type(filepath)!r} for {cls.__name__!r}"
+            raise TypeError(msg)
+
+        # Constructs a path and extracts file type
+        path = Path(filepath)
+        file_type = path.suffix.lower()
+
+        # Raises error for non supported file type
+        if file_type not in FILE_TYPES: raise FileTypeNotSupport(file_type)
+            # Raises error for non supported file type
 
         lines = cls._read_lines(filepath)
-        return ParseLines.parse(lines)
+        data = ParseLines.parse(lines)
+        return AttributeLoader.load(data, file_type)
 
     @staticmethod
-    def _read_lines(filepath_or_file: Path | str | IO | Any) ->  list[str]:
+    def _read_lines(filepath_or_file: Path | str) ->  list[str]:
         """ Read lines from file path or file-like object. """
-        if hasattr(filepath_or_file, 'read') and hasattr(filepath_or_file, 'readlines'):
-            # Check if it's a file-like object
-            return filepath_or_file.readlines()
 
         # Convert to Path and validate
         filepath = Path(filepath_or_file)
@@ -63,24 +66,29 @@ class ParseLines:
             line = lines[state.index].strip()
             state.index += 1
 
+            if not line:
+                # Skips empty lines
+                continue
+
+            # Extracts the solution and value than casts it in primitives
             is_section, section = cls._is_section(line)
             is_value, raw_value = cls._extract_section_value(line)
 
             value = Deserialize.cast(raw_value)
 
-            if section.lower() in BLOCK_SECTIONS:
+            if section in BLOCK_SECTIONS:
                 # Parses block section syntaxes
                 data, state = BlockExtraction.extract(lines, value, state)
                 state.content[section] = data
                 continue
 
-            if section.lower() in DATA_SECTIONS:
+            if section in DATA_SECTIONS:
                 # Parses the data section syntaxes
                 data, state = DataExtraction.extract(lines, value, state)
                 state.content[section] = data
                 continue
 
-            if section.lower() in SOLUTION_SECTION:
+            if section in SOLUTION_SECTION:
                 # Parse the solution section syntaxes
                 data, state = SolutionExtraction.extract(lines, state)
                 state.content[section] = data
@@ -106,7 +114,7 @@ class ParseLines:
             msg = "closing bracket not found in-line"
             raise ParserError(cls.__name__, msg)
 
-        return True, line[1:closing_bracket]
+        return True, line[1:closing_bracket].lower()
 
     @classmethod
     def _extract_section_value(cls, line: str) -> tuple[bool, str]:
