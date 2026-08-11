@@ -26,7 +26,6 @@ RESOLUTION = 300
 x_min, x_max = min(x), max(x)
 y_min, y_max = min(y), max(y)
 
-
 # Add padding
 PAD = 0.05
 x_range = x_max - x_min
@@ -36,11 +35,9 @@ x_max += PAD * x_range
 y_min -= PAD * y_range
 y_max += PAD * y_range
 
-
 xi = np.linspace(x_min, x_max, RESOLUTION)
 yi = np.linspace(y_min, y_max, RESOLUTION)
 X, Y = np.meshgrid(xi, yi)
-
 
 # Interpolate A onto grid
 A_grid = griddata((x, y), a, (X, Y), method='linear')

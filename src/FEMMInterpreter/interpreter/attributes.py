@@ -24,6 +24,7 @@ class AttributeLoader:
 
         match file_type:
             case ".ans":
+                # Returns the magnetic data as attribute class
                 return MagneticData(data)
 
             case _:
