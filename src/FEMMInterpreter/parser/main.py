@@ -11,14 +11,14 @@ Description:
 from pathlib import Path
 from typing import IO, Any
 
-from FEMMInterpreter.core.states import ParserState
-from FEMMInterpreter.core.deserialization import Deserialize
-from FEMMInterpreter.core.syntax import BlockExtraction, DataExtraction, SolutionExtraction
-from FEMMInterpreter.core.constants import (
+from FEMMInterpreter.parser.core.states import ParserState
+from FEMMInterpreter.parser.core.deserialization import Deserialize
+from FEMMInterpreter.parser.core.syntax import BlockExtraction, DataExtraction, SolutionExtraction
+from FEMMInterpreter.parser.core.constants import (
     FILE_TYPES, BLOCK_SECTIONS, DATA_SECTIONS, SOLUTION_SECTION
 )
 
-from FEMMInterpreter.utilities.errors import ParserError
+from FEMMInterpreter.parser.utilities.errors import ParserError
 
 
 class Parser:

@@ -8,11 +8,11 @@ Description:
     section parsing.
 """
 
-from FEMMInterpreter.core.states import ParserState
-from FEMMInterpreter.utilities.errors import ParserError
-from FEMMInterpreter.core.deserialization import Deserialize
+from FEMMInterpreter.parser.core.states import ParserState
+from FEMMInterpreter.parser.utilities.errors import ParserError
+from FEMMInterpreter.parser.core.deserialization import Deserialize
 
-from FEMMInterpreter.core.constants import BLOCK_PAIRS, DATA_SECTIONS
+from FEMMInterpreter.parser.core.constants import BLOCK_PAIRS, DATA_SECTIONS
 
 
 class BlockExtraction:

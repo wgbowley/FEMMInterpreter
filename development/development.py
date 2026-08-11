@@ -9,7 +9,7 @@ Description:
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.interpolate import griddata
-from FEMMInterpreter import Parser
+from FEMMInterpreter.parser import Parser
 
 # Imports the parser and parses the .ans file
 PATH = "development/magnetostatic.ans"
@@ -17,6 +17,7 @@ data = Parser.open(PATH)
 
 first_key = next(iter(data["Solution"]))
 solution = data["Solution"][first_key]
+
 
 # Convert to floats
 x = []
