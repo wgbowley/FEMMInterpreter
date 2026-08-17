@@ -53,10 +53,6 @@ FEMM Setup & Solve → FEMM (.ans) → FEMMInterpreter → Reduced Order Models 
 
 ## Quick Start
 
-> [!IMPORTANT]
->
-> This tool will focus on the magnetic domain for now, but can be expanded in the future to cover all FEMM solutions.
-
 ```py
 from femminterpreter import Parser
 
@@ -67,6 +63,11 @@ data = Parser.open(PATH)
 # Result as a float with implicit unit of wb/length_unit
 a_potential = data.point_potential(0, 0)
 ```
+
+> [!IMPORTANT]
+>
+> This tool will focus on the magnetic domain for now, but can be expanded in the future to cover all FEMM solutions.
+
 
 ## Installation
 
