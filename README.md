@@ -33,7 +33,7 @@ A Python library for interpreting Finite Element Method Magnetic (FEMM) files an
 
 <div align="center">
   <img src="media/dipole_a_potential_plot.png" alt="Magnetic vector potential Plot" style="max-width: 600px">
-    <p><em>Figure 1: Magnetic vector potential extracted from FEMM (.ans)</em></p>
+    <p><em>Figure 1: Magnetic vector potential of a dipole extracted from FEMM (.ans)</em></p>
 </div>
 
 ## Quick Start
@@ -44,6 +44,9 @@ from FEMMInterpreter import Parser
 # Imports the parser and parses the .ans file
 PATH = "development/magnetostatic.ans"
 data = Parser.open(PATH)
+
+# Calculates the vector potential at (0,0)
+a_potential = data.point_potential(0, 0)
 ```
 
 ## Installation

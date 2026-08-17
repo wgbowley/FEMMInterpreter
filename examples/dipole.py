@@ -1,9 +1,9 @@
 """
-Filename: development.py
+Filename: dipole.py
 
 Description:
-    This file is used for the 
-    development of the FEMMinterpreter.
+    This file is an example 
+    of plotting a dipole.
 """
 
 import matplotlib.pyplot as plt
@@ -12,7 +12,7 @@ from FEMMInterpreter import Parser
 # Imports the parser and parses the .ans file
 PATH = "examples/dipole.ans"
 data = Parser.open(PATH)
-print(data.iron.bh_curve)
+
 
 # Returns the x, y and a spaces
 x, y, a = data.field_potential()
