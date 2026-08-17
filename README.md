@@ -46,7 +46,7 @@ PATH = "development/magnetostatic.ans"
 data = Parser.open(PATH)
 
 # Calculates the vector potential at x=0, y=0
-# Result is wb/{length_unit}
+# Result is in wb/{length_unit}
 a_potential = data.point_potential(0, 0)
 ```
 
