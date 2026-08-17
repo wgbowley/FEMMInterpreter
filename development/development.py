@@ -20,7 +20,6 @@ x = data.vector_x
 y = data.vector_y
 a = data.vector_a
 
-
 # Create grid for interpolation
 RESOLUTION = 300
 x_min, x_max = min(x), max(x)
