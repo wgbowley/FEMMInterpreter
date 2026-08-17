@@ -8,7 +8,7 @@ Description:
 
 from typing import Any
 
-from femminterpreter.constants import FILE_FORMATS, FILE_TYPES
+from FEMMInterpreter.constants import FILE_FORMATS, FILE_TYPES
 
 # pylint: disable=line-too-long
 

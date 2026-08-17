@@ -54,7 +54,7 @@ FEMM Setup & Solve → FEMM (.ans) → FEMMInterpreter → Reduced Order Models 
 ## Quick Start
 
 ```py
-from femminterpreter import Parser
+from FEMMInterpreter import Parser
 
 # Imports the parser and parses the .ans file
 PATH = "examples/magnetostatic.ans"
@@ -79,7 +79,7 @@ a_potential = data.point_potential(0, 0)
 To install,
 
 ```
-pip install femminterpreter
+pip install FEMMInterpreter
 ```
 
 ## Documentation

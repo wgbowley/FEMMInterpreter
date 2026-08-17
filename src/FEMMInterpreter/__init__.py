@@ -1,7 +1,7 @@
 # pylint: skip-file
-# femminterpreter/__init__.py
+# FEMMInterpreter/__init__.py
 
-from femminterpreter.parser import Parser
+from FEMMInterpreter.parser import Parser
 
 # Parser import
 FEMMParser = Parser

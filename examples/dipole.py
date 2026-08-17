@@ -7,7 +7,7 @@ Description:
 """
 
 import matplotlib.pyplot as plt
-from femminterpreter import Parser
+from FEMMInterpreter import Parser
 
 # Imports the parser and parses the .ans file
 PATH = "examples/dipole.ans"

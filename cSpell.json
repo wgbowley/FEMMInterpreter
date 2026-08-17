@@ -28,7 +28,7 @@
     "endbdry",
     "endcircuit",
     "fdb_latexmk",
-    "femminterpreter",
+    "FEMMInterpreter",
     "Femm",
     "figsize",
     "fontsize",

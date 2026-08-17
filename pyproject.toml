@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "FEMMInterpreter"
-version = "0.1-alpha"
+version = "0.1.1"
 description = "A python library for interpreting FEMM solution files"
 
 readme = "README.md"
@@ -37,4 +37,4 @@ classifiers = [
 "Bug Tracker" = "https://github.com/wgbowley/FEMMInterpreter/issues"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/femminterpreter"]
+packages = ["src/FEMMInterpreter"]
