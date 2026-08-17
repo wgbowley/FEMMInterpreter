@@ -69,7 +69,7 @@ a_potential = data.point_potential(0, 0)
 ## Installation
 
 > [!WARNING]
-> This library is still under development and hasn't been fully documented nor fully test-covered. 
+> This library is still under development and hasn't been fully documented nor fully test-covered. <br>
 > The abstraction boundaries may change with future releases. 
 
 To install,
