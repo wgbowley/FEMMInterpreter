@@ -57,6 +57,9 @@
     "totalamps_re",
     "viridis",
     "xlabel",
-    "ylabel"
+    "ylabel",
+    "numpy",
+    "scipy",
+    "femminterpreter"
   ]
 }
