@@ -4,10 +4,12 @@ The FEMM file format specification can be found [here](references/FEMM_format.pd
 and the output attribute class documentation can be found [here](attributes.pdf).
 
 > [!note]
-> The `point_potential` method uses nearest-neighbour interpolation to calculate the field potential at a point.
+> The `point_potential` method uses nearest-neighbour interpolation to
+> calculate the vector potential at a point.
 
 > [!note]
-> The `field_potential` method uses linear interpolation to construct the `A-field` space for graphing.
+> The `field_potential` method uses linear interpolation to construct the
+> `A-field` space for graphing.
 
 ---
 
