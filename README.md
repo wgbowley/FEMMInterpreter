@@ -32,7 +32,7 @@ A Python library for interpreting Finite Element Method Magnetic (FEMM) files an
 <!-- Need to update that image before updating to PyPi -->
 
 <div align="center">
-  <img src="media/dipole_a_potential_plot.png" alt="Magnetic vector potential Plot" style="max-width: 600px">
+  <img src="https://raw.githubusercontent.com/wgbowley/FEMMInterpreter/main/media/dipole_a_potential_plot.png" alt="Magnetic vector potential Plot" style="max-width: 600px">
     <p><em>Figure 1: Magnetic vector potential of a dipole extracted from FEMM (.ans)</em></p>
 </div>
 
