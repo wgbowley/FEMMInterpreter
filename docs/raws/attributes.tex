@@ -26,7 +26,8 @@
 % Header
 \begin{center}
 {\LARGE \textbf{FEMMInterpreter}} \\[4pt]
-{\large Output Class Attributes}
+{\large Output Class Attributes} \\[4pt]
+{\footnotesize\textbf{Version 0.1-alpha} --- August 18, 2026}
 \end{center}
 
 \section*{Attributes}
@@ -46,7 +47,7 @@
     \midrule
     format\_version & float & Format version of the file. \\
     frequency\_hz & float & Frequency for harmonic problems. \\
-    solver\_precision & float & Computing precision within FEMM. \\
+    solver\_precision & float & Computing precision within FEMM\@. \\
     min\_angle\_deg & float & Angle restriction for the triangulation. \\
     model\_depth & float & Typical length in z-direction (for 2D planar). \\
     length\_unit & str & Unit used for lengths (e.g., `millimeters', `inches'). \\
@@ -74,10 +75,10 @@
     \textbf{Attribute} & \textbf{Type} & \textbf{Description} \\
     \midrule
     name & str & Name of the material. \\
-    permeability & tuple(float, float) & Permeability in x and y directions. \\
+    permeability & tuple[float, float] & Permeability in x and y directions. \\
     coercive\_force & float & Coercive force in A/m. \\
     coercive\_angle & float & Angle of coercive force in degrees. \\
-    current\_density & tuple(float, float) & Real and imaginary current density. \\
+    current\_density & tuple[float, float] & Real and imaginary current density. \\
     conductivity & float & Electrical conductivity in S/m. \\
     lamination\_thickness & float & Lamination thickness in mm. \\
     hysteresis\_angle & float & Hysteresis angle for AC analysis. \\

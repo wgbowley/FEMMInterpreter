@@ -12,31 +12,43 @@ useful.
 P.S: Thanks for downloading the FEMMInterpreter repository `▽`ʃ♡
 -->
 
-> [!WARNING]
-> This library is still under development and hasn't been fully documented nor fully test covered. The abstraction boundaries may change with future releases. 
-
 ## Overview
 
 ![Status](https://img.shields.io/badge/Status-Active-FFFFFF?style=flat-square)
 ![License](https://img.shields.io/badge/License-MIT-00FFFF?style=flat-square&color=00FFFF)
 ![Python Version](https://img.shields.io/badge/Python-3.10%2B-FFFFFF?style=flat-square)
-![Coverage](https://img.shields.io/badge/Coverage-0%25-00FFFF?style=flat-square&color=00FFFF)
 
-A Python library for interpreting Finite Element Method Magnetic (FEMM) files and exposing the extracted solution in an attribute tree structure. `FEMMInterpreter` exposes the `A-field` as `A(x,y)`, independent of planar or axisymmetric coordinate systems.
+A Python library for interpreting Finite Element Method Magnetic (FEMM) files and exposing FEMM solution data 
+through a Python attribute-based interface. `FEMMInterpreter` exposes the `A-field` as `A(x,y)`, independent of 
+planar or axisymmetric coordinate systems.
 
-> [!IMPORTANT]
-> This tool will focus on the magnetic domain for now, but can be expanded in the future to cover all FEMM solutions.
+### Proposed Integration
+
+FEMMInterpreter is intended to provide a bridge between FEMM's numerical
+solutions and Python-based computational models.
+
+```
+FEMM Setup & Solve → FEMM (.ans) → FEMMInterpreter → Reduced Order Models / Analytical Models
+```
 
 ---
 
 <!-- Need to update that image before updating to PyPi -->
 
 <div align="center">
-  <img src="media/dipole_a_potential_plot.png" alt="Magnetic vector potential Plot" style="max-width: 600px">
-    <p><em>Figure 1: Magnetic vector potential of a dipole extracted from FEMM (.ans)</em></p>
+  <img 
+    src="https://raw.githubusercontent.com/wgbowley/FEMMInterpreter/main/media/dipole_a_potential_plot.png" 
+    alt="Magnetic vector potential Plot" style="max-width: 600px"
+  >
+    <p>
+      <em>
+      Figure 1: Magnetic vector potential of a dipole extracted from FEMM (.ans)
+      </em>
+    </p>
 </div>
 
-> [!note]
+> [!NOTE]
+>
 > This example of a dipole being plotted can be found in [/examples](examples/) with `.ans` and `.py` files.
 
 ## Quick Start
@@ -45,14 +57,24 @@ A Python library for interpreting Finite Element Method Magnetic (FEMM) files an
 from femminterpreter import Parser
 
 # Imports the parser and parses the .ans file
-PATH = "development/magnetostatic.ans"
+PATH = "examples/magnetostatic.ans"
 data = Parser.open(PATH)
 
 # Result as a float with implicit unit of wb/length_unit
 a_potential = data.point_potential(0, 0)
 ```
 
+> [!IMPORTANT]
+>
+> This tool will focus on the magnetic domain for now, but can be expanded in the future to cover all FEMM solutions.
+
+
 ## Installation
+
+> [!WARNING]
+>
+> This library is still under development and hasn't been fully documented nor fully test-covered. <br>
+> The abstraction boundaries may change with future releases. 
 
 To install,
 
