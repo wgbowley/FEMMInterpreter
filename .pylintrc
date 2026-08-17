@@ -4,6 +4,7 @@ disable =
     R0911,                      # Too many return statements
     C0321,                      # Multiple Statements (More than one statement on a single line)
     R0902,                      # Too many instance attributes
+    E1101,                      # Instance has no member
 
 
 [MASTER]

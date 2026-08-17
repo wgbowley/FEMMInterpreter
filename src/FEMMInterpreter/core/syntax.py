@@ -8,9 +8,9 @@ Description:
     section parsing.
 """
 
-from FEMMInterpreter.parser.states import ParserState
+from FEMMInterpreter.core.states import ParserState
 from FEMMInterpreter.utilities.errors import ParserError
-from FEMMInterpreter.parser.deserialization import Deserialize
+from FEMMInterpreter.core.deserialization import Deserialize
 
 from FEMMInterpreter.constants import BLOCK_PAIRS, DATA_SECTIONS
 

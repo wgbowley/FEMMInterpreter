@@ -10,7 +10,7 @@ from __future__ import annotations
 
 from FEMMInterpreter.constants import FILE_FORMATS
 from FEMMInterpreter.utilities.errors import FormatNotSupported, AttributeLoadingFailed
-from FEMMInterpreter.interpreter.magnetic import MagneticData
+from FEMMInterpreter.interpreter.magnetic.schema import MagneticData 
 
 
 class AttributeLoader:

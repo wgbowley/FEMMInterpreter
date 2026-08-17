@@ -10,9 +10,9 @@ Description:
 
 from pathlib import Path
 
-from FEMMInterpreter.parser.states import ParserState
-from FEMMInterpreter.parser.deserialization import Deserialize
-from FEMMInterpreter.parser.syntax import BlockExtraction, DataExtraction, SolutionExtraction
+from FEMMInterpreter.core.states import ParserState
+from FEMMInterpreter.core.deserialization import Deserialize
+from FEMMInterpreter.core.syntax import BlockExtraction, DataExtraction, SolutionExtraction
 from FEMMInterpreter.constants import FILE_TYPES, BLOCK_SECTIONS, DATA_SECTIONS, SOLUTION_SECTION
 
 from FEMMInterpreter.utilities.errors import ParserError, FileTypeNotSupported
