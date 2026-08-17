@@ -38,6 +38,8 @@
     "ylabel",
     "tkpoints",
     "conductorprops",
-    "minangle"
+    "minangle",
+    "magnetostatics",
+    "lengthunits"
   ]
 }

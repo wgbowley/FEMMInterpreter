@@ -15,7 +15,7 @@ from FEMMInterpreter.parser.deserialization import Deserialize
 from FEMMInterpreter.parser.syntax import BlockExtraction, DataExtraction, SolutionExtraction
 from FEMMInterpreter.constants import FILE_TYPES, BLOCK_SECTIONS, DATA_SECTIONS, SOLUTION_SECTION
 
-from FEMMInterpreter.utilities.errors import ParserError, FileTypeNotSupport
+from FEMMInterpreter.utilities.errors import ParserError, FileTypeNotSupported
 from FEMMInterpreter.interpreter.attributes import AttributeLoader, MagneticData
 
 
@@ -34,7 +34,7 @@ class Parser:
         file_type = path.suffix.lower()
 
         # Raises error for non supported file type
-        if file_type not in FILE_TYPES: raise FileTypeNotSupport(file_type)
+        if file_type not in FILE_TYPES: raise FileTypeNotSupported(file_type)
             # Raises error for non supported file type
 
         lines = cls._read_lines(filepath)
