@@ -39,7 +39,6 @@ A Python library for interpreting Finite Element Method Magnetic (FEMM) files an
 > [!note]
 > This example of a dipole being plotted can be found in [/examples](examples/) with `.ans` and `.py` files.
 
-
 ## Quick Start
 
 ```py
@@ -49,17 +48,15 @@ from FEMMInterpreter import Parser
 PATH = "development/magnetostatic.ans"
 data = Parser.open(PATH)
 
-# Calculates the vector potential at x=0, y=0
-# Result is in wb/{length_unit}
+# Result as a float with implicit unit of wb/length_unit
 a_potential = data.point_potential(0, 0)
 ```
 
 ## Installation
 
-To install:
+To install,
 
-```bash
-# Recommended for most users
+```
 pip install FEMMInterpreter
 ```
 
