@@ -57,7 +57,7 @@ a_potential = data.point_potential(0, 0)
 To install,
 
 ```
-pip install FEMMInterpreter
+pip install femminterpreter
 ```
 
 ## Documentation
