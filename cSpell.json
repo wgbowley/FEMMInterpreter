@@ -40,6 +40,10 @@
     "conductorprops",
     "minangle",
     "magnetostatics",
-    "lengthunits"
+    "lengthunits",
+    "problemtype",
+    "acsolver",
+    "prevtype",
+    "pointprops"
   ]
 }

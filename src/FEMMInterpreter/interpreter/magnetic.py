@@ -16,15 +16,6 @@ class MagneticData:
 
         # Loads variables into attributes
         self._load_top_level()
-        self._load_vector_potential()
-
-    def _load_vector_potential(self) -> None:
-        """ Loads the vector potential from the solution """
-        first_key = next(iter(self.data["solution"]))
-
-        self.vector_x = self.data["solution"][first_key][0]
-        self.vector_y = self.data["solution"][first_key][1]
-        self.vector_a = self.data["solution"][first_key][2]
 
     def _load_top_level(self) -> None:
         """ Loads the top level sections from the solution """
@@ -37,8 +28,7 @@ class MagneticData:
         self.min_angle_deg = self.data["minangle"]
 
         # Mesh Settings
-        self.use_smart_mesh = self.data["dosmartmesh"]
-        self.model_depth_m = self.data["depth"]
+        self.model_depth = self.data["depth"]
         self.length_unit = self.data["lengthunits"]
         self.problem_type = self.data["problemtype"]
         self.coordinate_system = self.data["coordinates"]
@@ -52,4 +42,3 @@ class MagneticData:
         self.comment_text = self.data["comment"]
         self.point_properties = self.data["pointprops"]
         self.boundary_properties = self.data["bdryprops"]
-    
