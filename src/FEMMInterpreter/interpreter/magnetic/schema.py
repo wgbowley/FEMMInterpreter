@@ -17,7 +17,7 @@ from numpy import (
     array as np_array
 )
 
-from FEMMInterpreter.interpreter.magnetic.definitions import (
+from femminterpreter.interpreter.magnetic.definitions import (
     MaterialDefinition,
     BoundaryDefinition,
     CircuitDefinition

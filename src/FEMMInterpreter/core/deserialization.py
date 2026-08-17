@@ -12,7 +12,7 @@ Description:
 from __future__ import annotations
 from typing import Any
 
-from FEMMInterpreter.utilities.errors import FailedCasting
+from femminterpreter.utilities.errors import FailedCasting
 
 
 class Deserialize:

@@ -10,13 +10,13 @@ Description:
 
 from pathlib import Path
 
-from FEMMInterpreter.core.states import ParserState
-from FEMMInterpreter.core.deserialization import Deserialize
-from FEMMInterpreter.core.syntax import BlockExtraction, DataExtraction, SolutionExtraction
-from FEMMInterpreter.constants import FILE_TYPES, BLOCK_SECTIONS, DATA_SECTIONS, SOLUTION_SECTION
+from femminterpreter.core.states import ParserState
+from femminterpreter.core.deserialization import Deserialize
+from femminterpreter.core.syntax import BlockExtraction, DataExtraction, SolutionExtraction
+from femminterpreter.constants import FILE_TYPES, BLOCK_SECTIONS, DATA_SECTIONS, SOLUTION_SECTION
 
-from FEMMInterpreter.utilities.errors import ParserError, FileTypeNotSupported
-from FEMMInterpreter.interpreter.attributes import AttributeLoader, MagneticData
+from femminterpreter.utilities.errors import ParserError, FileTypeNotSupported
+from femminterpreter.interpreter.attributes import AttributeLoader, MagneticData
 
 
 class Parser:

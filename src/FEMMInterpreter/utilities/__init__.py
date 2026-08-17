@@ -1,2 +1,2 @@
 # pylint: skip-file
-# FEMMInterpreter/utilities/__init__.py
+# femminterpreter/utilities/__init__.py
