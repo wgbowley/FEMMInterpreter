@@ -1,8 +1,30 @@
+<!--
+Color Palette:
+#FFFFFF - pure white 
+#F3A51C - rich, warm golden-orange 
+
+It's a simple piece of kit, but being able to integrate
+FEMM solutions directly into the pipeline is extremely
+useful.
+
+- William Bowley, 2026-08-17
+
+P.S: Thanks for downloading the FEMMInterpreter repository `▽`ʃ♡
+-->
+
 ## Overview
-A python library for interpreting FEMM solution files
+
+![Status](https://img.shields.io/badge/Status-Active-FFFFFF?style=flat-square)
+![License](https://img.shields.io/badge/License-MIT-00FFFF?style=flat-square&color=00FFFF)
+![Python Version](https://img.shields.io/badge/Python-3.10%2B-FFFFFF?style=flat-square)
+![Domain](https://img.shields.io/badge/Domain-FEM-00FFFF?style=flat-square&color=00FFFF)
+
+A Python library for interpreting Finite Element Method Magnetic (FEMM) files and exposing the extracted solution in an attribute tree structure. `FEMMInterpreter` also constructs the `B-field` from the `A-field` and exposes both as `A(x,y)` and `B(x,y)`, independent of planar or axisymmetric coordinate systems.
 
 > [!important]
-> This tool will focus on the magnetic domain for now. And can be expanded in the future across all of FEMM solutions.
+> This tool will focus on the magnetic domain for now, but can be expanded in the future to cover all FEMM solutions.
+
+---
 
 <div align="center">
   <img src="media/dipole_a_potential_plot.png" alt="Magnetic vector potential Plot" style="max-width: 600px">
@@ -17,11 +39,15 @@ from FEMMInterpreter import Parser
 # Imports the parser and parses the .ans file
 PATH = "development/magnetostatic.ans"
 data = Parser.open(PATH)
+```
 
-# Defines local variables for solution
-x = data.vector_x
-y = data.vector_y
-a = data.vector_a
+## Installation
+
+To install:
+
+```bash
+# Recommended for most users
+pip install FEMMInterpreter
 ```
 
 ## Documentation
