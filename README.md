@@ -55,6 +55,9 @@ pip install FEMMInterpreter
 
 ## Documentation
 
+> [!note]
+> Documentation for attribute classes can be found [here](docs/attributes.pdf)
+
 All internal documentation can be found within this repo's [issues](https://github.com/wgbowley/FEMMInterpreter/issues).
 
 ### Tags

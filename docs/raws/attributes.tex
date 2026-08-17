@@ -1,0 +1,55 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=0.8in]{geometry}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{booktabs}
+
+% Better section formatting
+\titleformat{\section}{\large\bfseries}{}{0em}{}[\titlerule]
+
+% Fix spacing after section titles
+\titlespacing{\section}{0pt}{12pt}{6pt}
+
+% Fix hyperref formatting
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  urlcolor=blue,
+}
+
+\begin{document}
+
+% Header
+\begin{center}
+{\LARGE \textbf{FEMMInterpreter}} \\[4pt]
+{\large Top-Level Configuration Attributes}
+\end{center}
+
+\section*{Magnetic Attributes}
+
+\begin{table}[h]
+  \centering
+  \renewcommand{\arraystretch}{1.5}
+  \begin{tabular}{>{\raggedright\arraybackslash}p{4.5cm} 
+                  >{\raggedright\arraybackslash}p{3cm}
+                  >{\raggedright\arraybackslash}p{9.5cm}}
+    \toprule
+    \textbf{Attribute} & \textbf{Type} & \textbf{Description} \\
+    \midrule
+    format\_version & float & The FEMM file format version number. \\
+    frequency\_hz & float & Operating frequency in Hertz for AC analysis. \\
+    solver\_precision & float & Numerical precision tolerance for the solver. \\
+    min\_angle\_deg & float & Minimum angle in degrees for meshing constraints. \\
+    model\_depth & float & Depth of the model in the z-direction (for 2D axisymmetric). \\
+    length\_unit & str & Unit system for length measurements (e.g., `millimeters', `inches'). \\
+    problem\_type & str & Type of analysis (e.g., `planar', `axisymmetric'). \\
+    coordinate\_system & str & Coordinate system used (e.g., `cartesian', `polar'). \\
+    comment\_text & str & User-defined metadata or notes about the model. \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\end{document}

@@ -20,25 +20,18 @@ class MagneticData:
     def _load_top_level(self) -> None:
         """ Loads the top level sections from the solution """
         # File & Version
-        self.format_version = self.data["format"]
+        self.format_version: float = self.data["format"]
 
         # Problem Definition
-        self.frequency_hz = self.data["frequency"]
-        self.solver_precision = self.data["precision"]
-        self.min_angle_deg = self.data["minangle"]
+        self.frequency_hz: float = self.data["frequency"]
+        self.solver_precision: float = self.data["precision"]
+        self.min_angle_deg: float = self.data["minangle"]
 
         # Mesh Settings
-        self.model_depth = self.data["depth"]
-        self.length_unit = self.data["lengthunits"]
-        self.problem_type = self.data["problemtype"]
-        self.coordinate_system = self.data["coordinates"]
-
-        # Solver Configuration
-        self.ac_solver_type = self.data["acsolver"]
-        self.prev_solution_type = self.data["prevtype"]
-        self.prev_solution_file = self.data["prevsoln"]
+        self.model_depth: float = self.data["depth"]
+        self.length_unit: str = self.data["lengthunits"]
+        self.problem_type: str = self.data["problemtype"]
+        self.coordinate_system: str = self.data["coordinates"]
 
         # Metadata
-        self.comment_text = self.data["comment"]
-        self.point_properties = self.data["pointprops"]
-        self.boundary_properties = self.data["bdryprops"]
+        self.comment_text: str = self.data["comment"]

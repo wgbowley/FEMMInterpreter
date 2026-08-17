@@ -1,2 +1,8 @@
 *.pyc
 *.egg-info
+*.fls
+*.log
+*.out
+*.gz
+*.fdb_latexmk
+*.aux
