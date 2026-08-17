@@ -42,6 +42,7 @@
     "magnetostatic",
     "magnetostatics",
     "minangle",
+    "neighbour",
     "nstrands",
     "numblocklabels",
     "numpoints",
@@ -62,6 +63,6 @@
     "totalamps_re",
     "viridis",
     "xlabel",
-    "ylabel"
+    "ylabel",
   ]
 }
