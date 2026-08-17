@@ -42,7 +42,7 @@ A Python library for interpreting Finite Element Method Magnetic (FEMM) files an
 ## Quick Start
 
 ```py
-from FEMMInterpreter import Parser
+from femminterpreter import Parser
 
 # Imports the parser and parses the .ans file
 PATH = "development/magnetostatic.ans"
