@@ -12,9 +12,6 @@ useful.
 P.S: Thanks for downloading the FEMMInterpreter repository `▽`ʃ♡
 -->
 
-> [!WARNING]
-> This library is still under development and hasn't been fully documented nor fully test-covered. The abstraction boundaries may change with future releases. 
-
 ## Overview
 
 ![Status](https://img.shields.io/badge/Status-Active-FFFFFF?style=flat-square)
@@ -70,6 +67,9 @@ a_potential = data.point_potential(0, 0)
 ```
 
 ## Installation
+
+> [!WARNING]
+> This library is still under development and hasn't been fully documented nor fully test-covered. The abstraction boundaries may change with future releases. 
 
 To install,
 
