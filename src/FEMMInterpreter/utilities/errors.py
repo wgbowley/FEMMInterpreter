@@ -60,4 +60,3 @@ class AttributeLoadingFailed(Exception):
         """ Returns a loading failure error """
         msg = f"[{self.CODE}] Failed to load {file_type!r} attributes into attribute structure"
         super().__init__(msg)
-    

@@ -7,10 +7,14 @@ Description:
     AC simulations.
 """
 
-from FEMMInterpreter.interpreter.magnetic.definitions import (
-    MaterialDefinition, BoundaryDefinition, CircuitDefinition
-)
+from numpy import column_stack as np_column_stack, array as np_array
+from scipy.interpolate import NearestNDInterpolator
 
+from FEMMInterpreter.interpreter.magnetic.definitions import (
+    MaterialDefinition,
+    BoundaryDefinition,
+    CircuitDefinition
+)
 
 class MagneticData:
     """ Magnetic Attribute Data """
@@ -23,6 +27,32 @@ class MagneticData:
         self._load_boundaries()
         self._load_materials()
         self._load_circuits()
+
+        # Creates the A potential map
+        self._constructs_potential_map()
+
+    def _constructs_potential_map(self) -> None:
+        """ Constructs the vector potential map """
+        solution = next(iter(self.data["solution"]))
+
+        # Convert to three lists for each dimension
+        self.vector_x = self.data["solution"][solution][0]
+        self.vector_y = self.data["solution"][solution][1]
+        self.vector_a = self.data["solution"][solution][2]
+
+        # Convert to numpy arrays for interpolation
+        points = np_column_stack((self.vector_x, self.vector_y))
+        values = np_array(self.vector_a)
+
+        # Create the interpolation function
+        self._interpolator = NearestNDInterpolator(points, values)
+
+    def vector_potential(self, x: float, y: float) -> float:
+        """ Return the magnetic vector potential A at point (x, y). """
+        result = self._interpolator(x, y)
+
+        # NearestNDInterpolator always returns a value
+        return result
 
     def _load_circuits(self) -> None:
         """ Loads materials section from the solution """
