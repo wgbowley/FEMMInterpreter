@@ -108,7 +108,6 @@ class BoundaryDefinition(Definition):
             entry["<outerangle>"]
         )
 
-
 @dataclass(slots=True, repr=False)
 class CircuitDefinition(Definition):
     """ Defines a circuit """
