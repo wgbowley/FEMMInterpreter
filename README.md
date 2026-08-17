@@ -22,7 +22,7 @@ P.S: Thanks for downloading the FEMMInterpreter repository `▽`ʃ♡
 ![Python Version](https://img.shields.io/badge/Python-3.10%2B-FFFFFF?style=flat-square)
 ![Coverage](https://img.shields.io/badge/Coverage-0%25-00FFFF?style=flat-square&color=00FFFF)
 
-A Python library for interpreting Finite Element Method Magnetic (FEMM) files and exposing the extracted solution in an attribute tree structure. `FEMMInterpreter` also constructs the `B-field` from the `A-field` and exposes both as `A(x,y)` and `B(x,y)`, independent of planar or axisymmetric coordinate systems.
+A Python library for interpreting Finite Element Method Magnetic (FEMM) files and exposing the extracted solution in an attribute tree structure. `FEMMInterpreter` exposes the `A-field` as `A(x,y)`, independent of planar or axisymmetric coordinate systems.
 
 > [!IMPORTANT]
 > This tool will focus on the magnetic domain for now, but can be expanded in the future to cover all FEMM solutions.
