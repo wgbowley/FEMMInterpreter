@@ -36,6 +36,10 @@ A Python library for interpreting Finite Element Method Magnetic (FEMM) files an
     <p><em>Figure 1: Magnetic vector potential of a dipole extracted from FEMM (.ans)</em></p>
 </div>
 
+> [!note]
+> This example can be found within [/examples](examples/)
+
+
 ## Quick Start
 
 ```py
