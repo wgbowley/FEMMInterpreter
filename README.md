@@ -37,7 +37,7 @@ A Python library for interpreting Finite Element Method Magnetic (FEMM) files an
 </div>
 
 > [!note]
-> This example can be found within [/examples](examples/)
+> This example of a dipole being plotted can be found in [/examples](examples/) with `.ans` and `.py` files.
 
 
 ## Quick Start
@@ -65,10 +65,8 @@ pip install FEMMInterpreter
 
 ## Documentation
 
-> [!note]
-> Documentation for attribute classes can be found [here](docs/attributes.pdf)
-
-All internal documentation can be found within this repo's [issues](https://github.com/wgbowley/FEMMInterpreter/issues).
+Documentation for the attribute class output can be found [here](docs/attributes.pdf). <br>
+Internal documentation can be found within this repo's [issues](https://github.com/wgbowley/FEMMInterpreter/issues).
 
 ### Tags
 ```
