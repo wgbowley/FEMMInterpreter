@@ -7,8 +7,15 @@ Description:
     AC simulations.
 """
 
-from numpy import column_stack as np_column_stack, array as np_array
-from scipy.interpolate import NearestNDInterpolator
+from typing import Any
+from scipy.interpolate import NearestNDInterpolator, griddata
+
+from numpy import (
+    column_stack as np_column_stack,
+    linspace as np_linspace, 
+    meshgrid as np_meshgrid,
+    array as np_array
+)
 
 from FEMMInterpreter.interpreter.magnetic.definitions import (
     MaterialDefinition,
@@ -47,12 +54,33 @@ class MagneticData:
         # Create the interpolation function
         self._interpolator = NearestNDInterpolator(points, values)
 
-    def vector_potential(self, x: float, y: float) -> float:
+    def point_potential(self, x: float, y: float) -> float:
         """ Return the magnetic vector potential A at point (x, y). """
         result = self._interpolator(x, y)
 
         # NearestNDInterpolator always returns a value
         return result
+
+    def field_potential(self, resolution: int = 300) -> tuple[Any, Any, Any]:
+        """ Returns the interpolated potential field """
+        x_min, x_max = min(self.vector_x), max(self.vector_x)
+        y_min, y_max = min(self.vector_y), max(self.vector_y)
+
+        # Creates a x and y space
+        xi = np_linspace(x_min, x_max, resolution)
+        yi = np_linspace(y_min, y_max, resolution)
+        x_space, y_space = np_meshgrid(xi, yi)
+
+        # Interpolate A onto x, y space
+        a_grid = griddata(
+            (self.vector_x, self.vector_y),
+            self.vector_a,
+            (x_space, y_space),
+            method='linear'
+        )
+
+        # Returns the X, Y and A spaces
+        return x_space, y_space, a_grid
 
     def _load_circuits(self) -> None:
         """ Loads materials section from the solution """

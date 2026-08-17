@@ -43,10 +43,14 @@ class MaterialDefinition(Definition):
     lamination_fill: float
     num_strands: int
     wire_diameter: float
+    bh_curve: list[tuple[float, float]]
 
     @classmethod
     def define(cls, entry: dict[str, Any]) -> MaterialDefinition:
         """ Self-constructs the magnetic material from entry """
+        bh_data = entry.get("<bhpoints>", {})
+        bh_curve = [(v[0], v[1]) for v in bh_data.values()] if bh_data else []
+
         return cls(
             entry["<blockname>"],
             (entry["<mu_x>"], entry["<mu_y>"]),
@@ -61,7 +65,8 @@ class MaterialDefinition(Definition):
             entry["<lamtype>"],
             entry["<lamfill>"],
             entry["<nstrands>"],
-            entry["<wired>"]
+            entry["<wired>"],
+            bh_curve
         )
 
 
