@@ -7,6 +7,4 @@ from femminterpreter.parser import Parser
 FEMMParser = Parser
 
 # API Promises
-__all__ = [
-    "Parser",
-]
+__all__ = ["Parser",]
