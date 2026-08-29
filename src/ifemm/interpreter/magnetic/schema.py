@@ -14,14 +14,25 @@ from numpy import (
     column_stack as np_column_stack,
     linspace as np_linspace, 
     meshgrid as np_meshgrid,
-    array as np_array
+    array as np_array,
+    gradient as np_gradient,
 )
 
-from FEMMInterpreter.interpreter.magnetic.definitions import (
+from ifemm.interpreter.magnetic.definitions import (
     MaterialDefinition,
     BoundaryDefinition,
     CircuitDefinition
 )
+
+
+_LENGTH_TO_SI = {
+    "meters": 1.0,
+    "centimeters": 1e-2,
+    "millimeters": 1e-3,
+    "inches": 2.54e-2,
+    "mils": 2.54e-5,
+}
+
 
 class MagneticData:
     """ Magnetic Attribute Data """
@@ -37,6 +48,16 @@ class MagneticData:
 
         # Creates the A potential map
         self._constructs_potential_map()
+
+    @property
+    def length_scale(self) -> float:
+        """ Conversion factor from model length units to metres. """
+        try:
+            return _LENGTH_TO_SI[self.length_unit.lower()]
+
+        except KeyError:
+            msg = f"Unsupported FEMM length unit: {self.length_unit}"
+            raise ValueError(msg) from None
 
     def _constructs_potential_map(self) -> None:
         """ Constructs the vector potential map """
@@ -61,8 +82,8 @@ class MagneticData:
         # NearestNDInterpolator always returns a value
         return result
 
-    def field_potential(self, resolution: int = 300) -> tuple[Any, Any, Any]:
-        """ Returns the interpolated potential field """
+    def field_potential(self, resolution: int = 1000) -> tuple[Any, Any, Any]:
+        """ Returns the interpolated potential field. """
         x_min, x_max = min(self.vector_x), max(self.vector_x)
         y_min, y_max = min(self.vector_y), max(self.vector_y)
 
@@ -81,6 +102,42 @@ class MagneticData:
 
         # Returns the X, Y and A spaces
         return x_space, y_space, a_grid
+
+    def field_b(self, resolution: int = 1000) -> tuple[Any, Any, Any, Any]:
+        """ Returns the interpolated B field (Bx, By) from the vector potential A. """
+        x_space, y_space, a_grid = self.field_potential(resolution)
+
+        scale = self.length_scale
+
+        # Compute gradients in SI metres
+        dx = (x_space[0, 1] - x_space[0, 0]) * scale
+        dy = (y_space[1, 0] - y_space[0, 0]) * scale
+
+        da_dx = np_gradient(a_grid, dx, axis=1)
+        da_dy = np_gradient(a_grid, dy, axis=0)
+
+        # B = curl(A)
+        bx = da_dy
+        by = -da_dx
+
+        return x_space, y_space, bx, by
+
+    def point_b(self, x: float, y: float, eps: float = 1e-6) -> tuple[float, float]:
+        """ Returns magnetic flux density B at point (x, y). """
+        eps_si = eps * self.length_scale
+
+        a_plus_x = self.point_potential(x + eps, y)
+        a_minus_x = self.point_potential(x - eps, y)
+        da_dx = (a_plus_x - a_minus_x) / (2 * eps_si)
+
+        a_plus_y = self.point_potential(x, y + eps)
+        a_minus_y = self.point_potential(x, y - eps)
+        da_dy = (a_plus_y - a_minus_y) / (2 * eps_si)
+
+        bx = da_dy
+        by = -da_dx
+
+        return bx, by
 
     def _load_circuits(self) -> None:
         """ Loads materials section from the solution """
