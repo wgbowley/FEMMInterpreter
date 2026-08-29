@@ -13,7 +13,6 @@ from ifemm import Parser
 PATH = "examples/dipole.ans"
 data = Parser.open(PATH)
 
-
 # Returns the x, y and a spaces
 length_unit = data.length_unit
 x, y, a = data.field_potential()
