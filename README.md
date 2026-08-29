@@ -35,7 +35,7 @@ FEMM Setup & Solve → FEMM (.ans) → FEMMInterpreter → Reduced Order Models 
 
 <div align="center">
   <img 
-    src="./media/planar_llc_b_field.png" 
+    src="https://raw.githubusercontent.com/wgbowley/FEMMInterpreter/refs/heads/main/media/planar_llc_b_field.png" 
     alt="B-field of transformer" style="max-width: 600px"
   >
     <p> <em> B-field of a planar LLC transformer from FEMM (.ans) </em> </p>
