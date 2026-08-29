@@ -23,7 +23,7 @@ fig, ax = plt.subplots(figsize=(10, 8))
 
 contour = ax.contourf(x, y, a, levels=50, cmap='viridis')
 cbar = plt.colorbar(contour, ax=ax)
-cbar.set_label(f'A (Wb/{length_unit})', fontsize=12)
+cbar.set_label('A (Wb/m)', fontsize=12)
 
 ax.set_xlabel(f'x ({length_unit})', fontsize=12)
 ax.set_ylabel(f'y ({length_unit})', fontsize=12)

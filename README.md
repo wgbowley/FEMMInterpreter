@@ -37,14 +37,10 @@ FEMM Setup & Solve → FEMM (.ans) → FEMMInterpreter → Reduced Order Models 
 
 <div align="center">
   <img 
-    src="https://raw.githubusercontent.com/wgbowley/FEMMInterpreter/main/media/dipole_a_potential_plot.png" 
-    alt="Magnetic vector potential Plot" style="max-width: 600px"
+    src="./media/planar_llc_b_field.png" 
+    alt="B-field of transformer" style="max-width: 600px"
   >
-    <p>
-      <em>
-      Figure 1: Magnetic vector potential of a dipole extracted from FEMM (.ans)
-      </em>
-    </p>
+    <p> <em> B-field of a planar LLC transformer from FEMM (.ans) </em> </p>
 </div>
 
 > This example of a dipole being plotted can be found in [/examples](examples/) with `.ans` and `.py` files.

@@ -39,7 +39,6 @@ class Parser:
 
         lines = cls._read_lines(filepath)
         data = ParseLines.parse(lines)
-        print(data)
         return AttributeLoader.load(data, file_type)
 
     @staticmethod

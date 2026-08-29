@@ -23,6 +23,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Extra constants to the constant files "numarcsegments" & "beginpoint"
 - Updated referencing in `__init__.py` files to `ifemm` instead of `FEMMInterpreter`
 - Improved the readme and /docs file. 
+- Returns the interpolated B field from vector potential A for graphing.
+- Returns the point B field for calculations using finite differences.
 
 ### Fixed
 - Missing constants extra when loading solutions that used arc segments
