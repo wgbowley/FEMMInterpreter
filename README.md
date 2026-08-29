@@ -12,7 +12,7 @@ useful.
 P.S: Thanks for downloading the FEMMInterpreter repository `▽`ʃ♡
 -->
 
-## Overview
+### Overview
 
 ![Status](https://img.shields.io/badge/Status-Active-FFFFFF?style=flat-square)
 ![License](https://img.shields.io/badge/License-MIT-00FFFF?style=flat-square&color=00FFFF)
@@ -54,7 +54,7 @@ FEMM Setup & Solve → FEMM (.ans) → FEMMInterpreter → Reduced Order Models 
 ## Quick Start
 
 ```py
-from FEMMInterpreter import Parser
+from ifemm import Parser
 
 # Imports the parser and parses the .ans file
 PATH = "examples/magnetostatic.ans"
@@ -81,16 +81,6 @@ pip install FEMMInterpreter
 
 ### Documentation
 
-Documentation for the attribute class output can be found [here](docs/attributes.pdf). <br>
-Internal documentation can be found within this repo's [issues](https://github.com/wgbowley/FEMMInterpreter/issues).
-
-#### Tags
-```
-LX -> Documentation and project structure
-L0 -> Requirements and Objectives
-L1 -> Architecture and implementation
-L2 -> Validation of the codebase
-DS -> Descoped Feature, Descoped Analysis 
-```
+Full documentation is available in the [`docs/`](https://github.com/wgbowley/FEMMInterpreter/tree/main/docs) folder, including API reference, changelog, and contributors.
 
 ---

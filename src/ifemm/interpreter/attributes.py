@@ -8,9 +8,9 @@ Descriptions:
 
 from __future__ import annotations
 
-from FEMMInterpreter.constants import FILE_FORMATS
-from FEMMInterpreter.utilities.errors import FormatNotSupported, AttributeLoadingFailed
-from FEMMInterpreter.interpreter.magnetic.schema import MagneticData 
+from ifemm.constants import FILE_FORMATS
+from ifemm.utilities.errors import FormatNotSupported, AttributeLoadingFailed
+from ifemm.interpreter.magnetic.schema import MagneticData 
 
 
 class AttributeLoader:

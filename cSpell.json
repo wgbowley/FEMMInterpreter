@@ -64,6 +64,9 @@
     "viridis",
     "xlabel",
     "ylabel",
-    "numarcsegments"
+    "numarcsegments",
+    "numholes",
+    "beginpoint",
+    "ifemm"
   ]
 }

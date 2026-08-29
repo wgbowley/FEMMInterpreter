@@ -10,13 +10,13 @@ Description:
 
 from pathlib import Path
 
-from FEMMInterpreter.core.states import ParserState
-from FEMMInterpreter.core.deserialization import Deserialize
-from FEMMInterpreter.core.syntax import BlockExtraction, DataExtraction, SolutionExtraction
-from FEMMInterpreter.constants import FILE_TYPES, BLOCK_SECTIONS, DATA_SECTIONS, SOLUTION_SECTION
+from ifemm.core.states import ParserState
+from ifemm.core.deserialization import Deserialize
+from ifemm.core.syntax import BlockExtraction, DataExtraction, SolutionExtraction
+from ifemm.constants import FILE_TYPES, BLOCK_SECTIONS, DATA_SECTIONS, SOLUTION_SECTION
 
-from FEMMInterpreter.utilities.errors import ParserError, FileTypeNotSupported
-from FEMMInterpreter.interpreter.attributes import AttributeLoader, MagneticData
+from ifemm.utilities.errors import ParserError, FileTypeNotSupported
+from ifemm.interpreter.attributes import AttributeLoader, MagneticData
 
 
 class Parser:
@@ -39,6 +39,7 @@ class Parser:
 
         lines = cls._read_lines(filepath)
         data = ParseLines.parse(lines)
+        print(data)
         return AttributeLoader.load(data, file_type)
 
     @staticmethod
