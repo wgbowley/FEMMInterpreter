@@ -51,7 +51,9 @@ FEMM Setup & Solve → FEMM (.ans) → FEMMInterpreter → Reduced Order Models 
 
 > This example of a dipole being plotted can be found in [/examples](examples/) with `.ans` and `.py` files.
 
-## Quick Start
+---
+
+### Quick Start
 
 ```py
 from ifemm import Parser
