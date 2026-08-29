@@ -34,6 +34,7 @@ BLOCK_PAIRS = {
 # Validate Data Section Names
 DATA_SECTIONS = [
     "numblocklabels",
+    "numarcsegments"
     "conductorprops",
     "numpoints",
     "numsegments",

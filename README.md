@@ -22,6 +22,8 @@ A Python library for interpreting Finite Element Method Magnetic (FEMM) files an
 through a Python attribute-based interface. `FEMMInterpreter` exposes the `A-field` as `A(x,y)`, independent of 
 planar or axisymmetric coordinate systems.
 
+---
+
 ### Proposed Integration
 
 FEMMInterpreter is intended to provide a bridge between FEMM's numerical
@@ -47,8 +49,6 @@ FEMM Setup & Solve → FEMM (.ans) → FEMMInterpreter → Reduced Order Models 
     </p>
 </div>
 
-> [!NOTE]
->
 > This example of a dipole being plotted can be found in [/examples](examples/) with `.ans` and `.py` files.
 
 ## Quick Start
@@ -64,15 +64,10 @@ data = Parser.open(PATH)
 a_potential = data.point_potential(0, 0)
 ```
 
-> [!IMPORTANT]
->
-> This tool will focus on the magnetic domain for now, but can be expanded in the future to cover all FEMM solutions.
+---
 
+### Installation
 
-## Installation
-
-> [!WARNING]
->
 > This library is still under development and hasn't been fully documented nor fully test-covered. <br>
 > The abstraction boundaries may change with future releases. 
 
@@ -82,12 +77,14 @@ To install,
 pip install FEMMInterpreter
 ```
 
-## Documentation
+---
+
+### Documentation
 
 Documentation for the attribute class output can be found [here](docs/attributes.pdf). <br>
 Internal documentation can be found within this repo's [issues](https://github.com/wgbowley/FEMMInterpreter/issues).
 
-### Tags
+#### Tags
 ```
 LX -> Documentation and project structure
 L0 -> Requirements and Objectives
@@ -95,3 +92,5 @@ L1 -> Architecture and implementation
 L2 -> Validation of the codebase
 DS -> Descoped Feature, Descoped Analysis 
 ```
+
+---

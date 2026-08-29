@@ -64,5 +64,6 @@
     "viridis",
     "xlabel",
     "ylabel",
+    "numarcsegments"
   ]
 }
