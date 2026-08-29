@@ -33,8 +33,6 @@ FEMM Setup & Solve → FEMM (.ans) → FEMMInterpreter → Reduced Order Models 
 
 ---
 
-<!-- Need to update that image before updating to PyPi -->
-
 <div align="center">
   <img 
     src="./media/planar_llc_b_field.png" 
