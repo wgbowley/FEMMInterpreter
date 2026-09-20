@@ -30,6 +30,17 @@ FEMM Setup & Solve → FEMM (.ans) → ifemm → Reduced Order Models / Analytic
 
 ---
 
+### Example
+
+This example of a dipole being plotted can be found in [/examples](examples/) with `.ans` and `.py` files.
+
+<div align="center">
+  <img src="./media/planar_llc_b_field.png" alt="B-field of transformer" style="max-width: 600px">
+  <p> <em> B-field of a planar LLC transformer from FEMM (.ans) </em> </p>
+</div>
+
+---
+
 ### Quick Start
 
 ```py
