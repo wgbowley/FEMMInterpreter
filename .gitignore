@@ -1,3 +1,6 @@
+# .gitignore
+
+# Ignore Files
 *.pyc
 *.egg-info
 *.fls
@@ -6,3 +9,6 @@
 *.gz
 *.fdb_latexmk
 *.aux
+
+# Ignore folders
+testing
