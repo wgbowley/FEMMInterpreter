@@ -1,5 +1,5 @@
 # pylint: skip-file
-# FEMMInterpreter/__init__.py
+# ifemm/__init__.py
 
 from ifemm.parser import Parser
 
