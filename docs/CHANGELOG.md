@@ -36,7 +36,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Namespace on pypi is `ifemm` & github is `ifemm`
 
 ### Fixed
-*Work in progress*
-
+- Fixed `axisymmetric` b-field & a-field graphs.
 
 --- 
