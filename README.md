@@ -17,7 +17,6 @@ P.S: Thanks for downloading the ifemm repository `▽`ʃ♡
 ![Version](https://img.shields.io/badge/Version-0.2.0-FFFFFF?style=flat-square)
 ![License](https://img.shields.io/badge/License-MIT-00FFFF?style=flat-square&color=00FFFF)
 ![Python Version](https://img.shields.io/badge/Python-3.10%2B-FFFFFF?style=flat-square)
-[![PyPI Downloads](https://img.shields.io/pepy/dt/ifemm?label=downloads\&style=flat-square\&color=00FFFF)](https://pepy.tech/projects/ifemm)
 
 A Python library for interpreting Finite Element Method Magnetic (FEMM) files and exposing FEMM solution data 
 through a Python attribute-based interface. `ifemm` exposes the `A-field` as `A(x,y)`, independent of planar or axisymmetric coordinate systems.
@@ -35,8 +34,14 @@ FEMM Setup & Solve → FEMM (.ans) → ifemm → Reduced Order Models / Analytic
 This example of a dipole being plotted can be found in [/examples](examples/) with `.ans` and `.py` files.
 
 <div align="center">
-  <img src="./media/planar_llc_b_field.png" alt="B-field of transformer" style="max-width: 600px">
-  <p> <em> B-field of a planar LLC transformer from FEMM (.ans) </em> </p>
+  <img 
+    src="https://raw.githubusercontent.com/wgbowley/FEMMInterpreter/refs/heads/main/media/planar_llc_b_field.png" 
+    alt="B-field of transformer" 
+    style="max-width: 600px"
+  >
+  <p>
+  <em> B-field of a planar LLC transformer from FEMM (.ans) </em>
+  </p>
 </div>
 
 ---
