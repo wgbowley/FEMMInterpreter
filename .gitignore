@@ -9,6 +9,3 @@
 *.gz
 *.fdb_latexmk
 *.aux
-
-# Ignore folders
-testing

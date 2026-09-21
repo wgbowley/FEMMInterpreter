@@ -114,7 +114,7 @@ class MagneticData:
         # Returns the X, Y and A spaces
         return x_space, y_space, a_grid
 
-    def field_b(self, resolution: int = 1000) -> tuple[Any, Any, Any, Any]:
+    def b_field(self, resolution: int = 1000) -> tuple[Any, Any, Any, Any]:
         """ Returns the interpolated B field (Bx, By) from the vector potential A. """
         x_space, y_space, a_grid = self.field_potential(resolution)
 
@@ -132,26 +132,6 @@ class MagneticData:
         by = -da_dx
 
         return x_space, y_space, bx, by
-
-    def point_b(self, x: float, y: float, eps: float = 1e-6) -> tuple[float, float]:
-        """ Returns magnetic flux density B at point (x, y). """
-        eps_si = eps * self.length_scale
-
-        # Computes the a_x & a_y range
-        a_plus_x = self.point_potential(x + eps, y)
-        a_minus_x = self.point_potential(x - eps, y)
-
-        a_plus_y = self.point_potential(x, y + eps)
-        a_minus_y = self.point_potential(x, y - eps)
-
-        # Computes the derivative of a over x & y
-        da_dx = (a_plus_x - a_minus_x) / (2 * eps_si)
-        da_dy = (a_plus_y - a_minus_y) / (2 * eps_si)
-
-        bx = da_dy
-        by = -da_dx
-
-        return bx, by
 
     def _load_circuits(self) -> None:
         """ Loads materials section from the solution """

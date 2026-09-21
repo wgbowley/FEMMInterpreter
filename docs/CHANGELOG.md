@@ -38,4 +38,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Fixed `axisymmetric` b-field & a-field graphs.
 
+### Removed
+- Removed `point_b(x, y)` for now. As it needs to be reimplemented.
+
 --- 
