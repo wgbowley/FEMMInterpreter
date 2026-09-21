@@ -1,7 +1,7 @@
 
 ## Contributors
 
-`FEMMInterpreter` is developed using:
+`ifemm` is developed using:
 - `pylint` as the linter
 - `radon` as the complexity analyzer
 - `coverage` to check test coverage
@@ -9,7 +9,7 @@
 - `CSpell` for spell checking (Code Spell Checker, Bundled Dictionaries)
 
 > [!note]
-> Ensure that you add words to `FEMMInterpreter` cSpell.json, not your personal dictionary.
+> Ensure that you add words to `ifemm` cSpell.json, not your personal dictionary.
 
 ---
 

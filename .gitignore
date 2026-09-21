@@ -1,3 +1,6 @@
+# .gitignore
+
+# Ignore Files
 *.pyc
 *.egg-info
 *.fls

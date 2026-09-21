@@ -67,6 +67,7 @@
     "numarcsegments",
     "numholes",
     "beginpoint",
-    "ifemm"
+    "ifemm",
+    "pylintrc"
   ]
 }

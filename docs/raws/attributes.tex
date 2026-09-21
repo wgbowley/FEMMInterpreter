@@ -25,7 +25,7 @@
 
 % Header
 \begin{center}
-{\LARGE \textbf{FEMMInterpreter}} \\[4pt]
+{\LARGE \textbf{ifemm}} \\[4pt]
 {\large Output Class Attributes} \\[4pt]
 {\footnotesize\textbf{Version 0.1-alpha} --- August 18, 2026}
 \end{center}
@@ -163,7 +163,6 @@
     point\_potential & x: float, y: float & Returns A at point (x, y). \\
     field\_potential & resolution: int = 300 & Returns (x\_space, y\_space, a\_grid). \\
     field\_b & resolution: int = 300 & Returns (x\_space, y\_space, bx, by). \\
-    point\_b & x: float, y: float, eps: float = 1e-6 & Returns (bx, by) at point using finite differences. \\
     \bottomrule
   \end{tabularx}
 \end{table}
