@@ -17,6 +17,7 @@ P.S: Thanks for downloading the ifemm repository `▽`ʃ♡
 ![Version](https://img.shields.io/badge/Version-0.2.0-FFFFFF?style=flat-square)
 ![License](https://img.shields.io/badge/License-MIT-00FFFF?style=flat-square&color=00FFFF)
 ![Python Version](https://img.shields.io/badge/Python-3.10%2B-FFFFFF?style=flat-square)
+[![PyPI Downloads](https://img.shields.io/pepy/dt/femminterpreter?label=downloads\&style=flat-square\&color=00FFFF)](https://pepy.tech/projects/femminterpreter)
 
 A Python library for interpreting Finite Element Method Magnetic (FEMM) files and exposing FEMM solution data 
 through a Python attribute-based interface. `ifemm` exposes the `A-field` as `A(x,y)`, independent of planar or axisymmetric coordinate systems.
