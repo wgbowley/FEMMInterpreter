@@ -31,7 +31,7 @@ FEMM Setup & Solve → FEMM (.ans) → ifemm → Reduced Order Models / Analytic
 
 ### Example
 
-This example of a dipole being plotted can be found in [/examples](examples/) with `.ans` and `.py` files.
+An example of a dipole being plotted can be found in [/examples](examples/) with `.ans` and `.py` files.
 
 <div align="center">
   <img 
